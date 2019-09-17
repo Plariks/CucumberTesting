@@ -57,6 +57,6 @@ public class YourCartPage {
         getTextFromCart = baseFunc.getElement(SUM_IN_CART).getText();
         checkAllDresses();
         dressPricePlusDelivery();
-        Assertions.assertEquals(addDollarSimbolAndSum, getTextFromCart); //dobavitj v assertions text message
+        Assertions.assertEquals(addDollarSimbolAndSum, getTextFromCart, "that's all folks...");
     }
 }

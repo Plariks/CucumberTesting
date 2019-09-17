@@ -22,9 +22,9 @@ public class WomenPage {
         for (int i = 0; i < neededProductCategory.size(); i++) {
             if (neededProductCategory.get(i).getAttribute("title").equals(productCategory)) {
                 neededProductCategory.get(i).click();
-            }
+            } else continue;
+            break;
         }
     }
-
 
 }

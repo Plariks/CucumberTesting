@@ -15,6 +15,12 @@ public class ChoosedDressPage {
     private final By CHOOSED_ITEM_COLORS = By.xpath("//ul[@id='color_to_pick_list']/li/a");
     private final By INPUT_FIELD = By.xpath("//p/input[@id='quantity_wanted']");
     private final By ADD_TO_CART_BUTTON = By.xpath("//button[@name='Submit']");
+    private final By SEND_TO_FRIEND_CHECK = By.xpath("//div/div/div[@id='send_friend_form']");
+    private final By INPUT_FOR_FRIEND_NAME = By.xpath("//p/input[@id='friend_name']");
+    private final By INPUT_FOR_FRIEND_MAIL = By.xpath("//p/input[@id='friend_email']");
+    private final By SEND_MAIL_TO_FRIEND_BUTTON = By.xpath("//div/ul/li/a[@id='send_friend_button']");
+    private final By SEND_BUTTON_UNDER_FORM = By.xpath("//div/p/button[@id='sendEmail']");
+    private final By OK_BUTTON_AFTER_SENT_MAIL = By.xpath("//div/div/div/p/input[@class='button']");
 
     WebElement howMuchDressNeeded;
 
@@ -44,4 +50,22 @@ public class ChoosedDressPage {
         baseFunc.refreshPage();
     }
 
+    public void sendingMailToFriend(String nameOfFriend, String mailOfFriend) {
+        baseFunc.getElement(INPUT_FOR_FRIEND_NAME).sendKeys(nameOfFriend);
+        baseFunc.getElement(INPUT_FOR_FRIEND_MAIL).sendKeys(mailOfFriend);
+    }
+
+    public void mailCheck() {
+        Assertions.assertFalse(baseFunc.isElementPresent(SEND_TO_FRIEND_CHECK));
+    }
+
+    public void pressSendMailButton() {
+        baseFunc.getElement(SEND_MAIL_TO_FRIEND_BUTTON).click();
+    }
+
+    public void sendFilledInformation() {
+        baseFunc.getElement(SEND_BUTTON_UNDER_FORM).click();
+        baseFunc.waitPage(OK_BUTTON_AFTER_SENT_MAIL);
+        baseFunc.getElement(OK_BUTTON_AFTER_SENT_MAIL).click();
+    }
 }

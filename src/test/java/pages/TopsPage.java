@@ -11,19 +11,23 @@ public class TopsPage {
 
     private BaseFunc baseFunc;
     private final By TOPS_PAGE_LOGO_CHECK = By.xpath("//div/div/div/span[@class='category-name']");
-    private final By TOPS_PAGE_PRODUCTS = By.xpath("//li/div/div/div/a/img");
+    private final By TOPS_PAGE_PRODUCTS = By.xpath("//div/div/h5/a");
+    private final By TOPS_PAGE_PRODUCTS_SMALLER = By.xpath("//div/div[@class='right-block']/h5/a");
 
 
     public TopsPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
-        Assertions.assertFalse(baseFunc.isElementPresent(TOPS_PAGE_LOGO_CHECK));
+//        Assertions.assertFalse(baseFunc.isElementPresent(TOPS_PAGE_LOGO_CHECK));
     }
 
     public void oneOfProductClick(String productChoice) {
-        List<WebElement> topsNeeedProduct = baseFunc.getAllElements(TOPS_PAGE_PRODUCTS);
-        for (int i = 0; i < topsNeeedProduct.size(); i++) {
-            if (topsNeeedProduct.get(i).getAttribute("title").equals(productChoice)) {
-                topsNeeedProduct.get(i).click();
+        baseFunc.waitPage(TOPS_PAGE_PRODUCTS_SMALLER);
+        List<WebElement> topsNeedProduct = baseFunc.getAllElements(TOPS_PAGE_PRODUCTS);
+        for (int i = 0; i < topsNeedProduct.size(); i++) {
+            if (topsNeedProduct.get(i).getAttribute("title").equals(productChoice)) {
+                topsNeedProduct.get(i).click();
+            } else {
+                continue;
             }
         }
     }

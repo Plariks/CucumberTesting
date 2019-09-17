@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,6 +16,8 @@ public class BaseFunc {
 
     WebDriver driver;
     WebDriverWait wait;
+    Actions actions;
+    WebElement target;
 
 
     public BaseFunc() {
@@ -41,7 +45,8 @@ public class BaseFunc {
     }
 
     public void waitPage(By locator) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
     }
 
     public void refreshPage() {
@@ -60,5 +65,29 @@ public class BaseFunc {
 
     public void exitFromTest() {
         driver.quit();
+    }
+
+    public void moveOverElement(By locator) {
+        actions = new Actions(driver);
+        target = driver.findElement(locator);
+        actions.moveToElement(target).perform();
+    }
+
+    public void moveToelement(By locator) {
+        actions = new Actions(driver);
+        target = driver.findElement(locator);
+        actions.moveToElement(target).click(target);
+        actions.perform();
+
+    }
+
+    public void moveToCoordinatesfast(int xcoordi, int ycoordi) {
+        actions = new Actions(driver);
+        actions.moveByOffset(xcoordi, ycoordi).click().build().perform();
+
+//        target = driver.findElement(locator);
+//        actions.moveToElement(target, xcoordi, ycoordi).click().build().perform();
+//        actions.moveByOffset(xcoordi, ycoordi).click().build().perform();
+//        actions.perform();
     }
 }

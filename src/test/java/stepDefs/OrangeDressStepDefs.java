@@ -1,7 +1,6 @@
 package stepDefs;
 
 
-
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -19,6 +18,8 @@ public class OrangeDressStepDefs {
     private YourCartPage yourCartPage;
     private WomenPage womenPage;
     private TopsPage topsPage;
+    private TshirtsPage tshirtsPage;
+    private ProductComparisonPage productComparisonPage;
 
     private final String url = "http://automationpractice.com/";
 
@@ -95,13 +96,13 @@ public class OrangeDressStepDefs {
         yourCartPage.compareCostOfDresses();
     }
 
-    @And("press on {string}")
+    @Then("press on {string}")
     public void chosen_category(String categoryName) {
         womenPage = new WomenPage(baseFunc);
         womenPage.clickWhatYouNeed(categoryName);
     }
 
-    @Then("Tops page opens")
+    @And("Tops page opens")
     public void tops_page_check() {
         topsPage = new TopsPage(baseFunc);
     }
@@ -111,14 +112,56 @@ public class OrangeDressStepDefs {
 //
 //    }
 
-    @And("press on {string} at Tops page")
+    @When("press on {string} at Tops page")
     public void chose_product_from_blouses(String productName) {
+        topsPage = new TopsPage(baseFunc);
         topsPage.oneOfProductClick(productName);
     }
 
-    @When("press on send to a friend")
+    @Then("press on send to a friend")
     public void send_product_to_a_friend() {
-
+        choosedDressPage = new ChoosedDressPage(baseFunc);
+        choosedDressPage.pressSendMailButton();
     }
 
+    @And("opens new form to send mail")
+    public void check_that_form_opened() {
+        choosedDressPage.mailCheck();
+    }
+
+    @Then("write {string} as name and {string} as mail")
+    public void write_name_and_mail(String friendName, String friendMail) {
+        choosedDressPage.sendingMailToFriend(friendName, friendMail);
+    }
+
+    @And("send all written information")
+    public void send_button_pressing() {
+        choosedDressPage.sendFilledInformation();
+    }
+
+    @Then("T-Shirts page opens")
+    public void t_shirt_page_opened() {
+        tshirtsPage = new TshirtsPage(baseFunc);
+    }
+
+    @And("press compare under product")
+    public void add_product_to_compare() {
+        tshirtsPage.moveOverProduct();
+    }
+
+    @And("click on big compare button")
+    public void click_on_compare() {
+        tshirtsPage.clickCompareButton();
+    }
+
+    @Then("opens Product Comparison page")
+    public void comparison_page_check() {
+        productComparisonPage = new ProductComparisonPage(baseFunc);
+    }
+
+    @Then("compare two products and add to cart cheapest one")
+    public void add_cheapest_product() {
+        productComparisonPage.addCheapestProduct();
+        productComparisonPage.pressOnCoordinates();
+    }
 }
